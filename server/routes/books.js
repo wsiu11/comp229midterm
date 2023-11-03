@@ -54,9 +54,7 @@ router.get('/details/:id', (req, res, next) => {
 //  GET the Book Details page in order to add a new Book
 router.get('/add', (req, res, next) => {
 
-  /*****************
-   * ADD CODE HERE *
-   *****************/
+  // render the detail page
   res.render('books/details', {
     title: 'Books',
     books: {}
@@ -66,9 +64,7 @@ router.get('/add', (req, res, next) => {
 // POST process the Book Details page and create a new Book - CREATE
 router.post('/add', (req, res, next) => {
 
-  /*****************
-   * ADD CODE HERE *
-   *****************/
+  // create book
   book.create({ Title: req.body.title, Price: req.body.price, Author: req.body.author, Genre: req.body.genre }, function(err, small) {
     if (err) {
       return console.error(err);
@@ -82,9 +78,7 @@ router.post('/add', (req, res, next) => {
 // GET the Book Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
 
-  /*****************
-   * ADD CODE HERE *
-   *****************/
+  // find book by id
   book.find({ _id: req.params.id }, (err, books) => {
     if (err) {
       return console.error(err);
@@ -103,9 +97,7 @@ router.get('/:id', (req, res, next) => {
 // POST - process the information passed from the details form and update the document
 router.post('/:id', (req, res, next) => {
 
-  /*****************
-   * ADD CODE HERE *
-   *****************/
+  // find book by id and update
   book.findOneAndUpdate({ _id: req.params.id }, { $set: { Title: req.body.title, Price: req.body.price, Author: req.body.author, Genre: req.body.genre } }).then((c) => {
     res.redirect('/books');
   }).catch(function (err) {
@@ -120,7 +112,7 @@ router.get('/delete/:id', (req, res, next) => {
   /*****************
    * ADD CODE HERE *
    *****************/
-
+  // delete book by id
   book.deleteOne({_id: req.params.id}).then(function() {
     console.log("deleted");
     res.redirect('/books');
